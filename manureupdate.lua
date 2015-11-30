@@ -1,6 +1,4 @@
 function Raster:update( delta )
-	local p = 0;
-	local n = 0;
 	local ppercent = 0.0007; --0.07%
 	local npercent = 0.005;--0.5%
 	--local deltap = 0.5 * delta;
@@ -8,6 +6,8 @@ function Raster:update( delta )
 
 	for j = 0, self.height - 1 do
     for i = 0, self.width - 1 do
+        local p = 0;
+        local n = 0;
 
         m = self:getpixel( 0, i, j );
         --pzero = self:getpixel( 1, i, j);
