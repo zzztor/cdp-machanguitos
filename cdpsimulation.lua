@@ -1,15 +1,31 @@
 function initialize()
-io.write("CdP Example\n")
-io.write(" Machen " ..config.VERSION_MAJOR .. "." ..config.VERSION_MINOR .. "\n")
+
+io.write("Machen " ..config.VERSION_MAJOR .. "." ..config.VERSION_MINOR .. "\n")
+
+io.write("Simulando Ejemplo de CdP \n")
 
 config.setLogLevel("info")
+
+--Aqui definimos algunas constantes: 
+--en total son 7 meses de 30 dias, es decir 210 dias de simulacion, medido en horas 24*210
+--6 iteraciones en cada hora
+--la semilla aleatoria deberia cambiarse cada vez
+config.setvars({
+	starttime = 0.0,
+	endtime = 24 * 30 * 7,
+	iters = 6 * 24 * 30 * 7,
+	randomseed = 9999,
+})
+--io.write(" Tiempo total (horas):" ..endtime .. " Iteraciones:" ..iters .. "\n")
+
+--Aqui definimos los layers                             
 
 data.createLayer("daily",
 {
 	x0 = 0.0,
-	x1 = 20.0,
+	x1 = 10000.0,
 	y0 = 0.0,
-	y1 = 20.0,
+	y1 = 10000.0,
 	w = 700,
 	h = 700,
 	default = 0,
@@ -17,67 +33,50 @@ data.createLayer("daily",
 
 data.setLayerUpdate("daily", "dayupdate")
 
-config.setvars({
-	starttime = 0.0,
-	endtime = 24 * 214,
-	iters = 144 * 214,
-	randomseed = 1,
-})
 
-data.createLayer("grass",
-    {
-        x0 = 0.0,
-        x1 = 20.0,
-        y0 = 0.0,
-        y1 = 20.0,
-        w = 700,
-        h = 700,
-        default = 250,
-    })
-
-data.setLayerUpdate("grass", "grassupdate")
 
 data.createLayer("manure",
 {
 	x0 = 0.0,
-	x1 = 20.0,
+	x1 = 10000.0,
 	y0 = 0.0,
-	y1 = 20.0,
+	y1 = 10000.0,
 	w = 700,
 	h = 700,
 	default = 0,
-	layers = 3,
+	layers = 1,
 })
 
-data.setLayerUpdate("manure", "manureupdate")
+--data.setLayerUpdate("manure", "manureupdate")
 
-data.loadLayer("area", "4-abril.png",
+data.loadLayer("area", "1.png",
 {
 	x0 = 0.0,
-	x1 = 20.0,
+	x1 = 10000.0,
 	y0 = 0.0,
-	y1 = 20.0,
+	y1 = 10000.0,
 })
 
 data.setLayerUpdate("area", "areaupdate")
 
-config.addAgent("cow", 6300)
+
+--Aqui definimos los agentes (tipo y numero de agentes)
+config.addAgent("cow", 10000)
+--config.addAgent("cow", 6300)
 --config.addAgent("sheep", 10200)
 
 end
 
 function startIteration(num)
-io.write("Start iteration " ..num .. "\n")
 end
 
 function endIteration(num)
-io.write("End iteration " ..num .. "\n")
-
-if num % 30 == 0 then
---http://gifmaker.me/
-raster.manure:save("export/output"..num..".png")
-end
-
+    if num % 300 == 0 then
+        io.write("Manure saved, iteration " .. num .. "\n");
+        --http://gifmaker.me/
+        --raster.manure:save("/gpfs/res_projects/uc19/cdp/export/output"..num..".png")
+        raster.manure:save("export/output"..num..".png");
+    end
 end
 
 function endSimulation()

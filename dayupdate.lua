@@ -1,6 +1,6 @@
 function Raster:update( delta )
    if not self.day then
-      self.day = 0
+      self.day = 1
    end
 
    if self.hour then
@@ -9,7 +9,7 @@ function Raster:update( delta )
       self.hour = delta
    end
 
-   while self.hour >= 24 do
+   if self.hour >= 24 then
       self.day = self.day + 1
       self.hour = self.hour - 24
    end
@@ -18,5 +18,5 @@ function Raster:update( delta )
    self:setpixel( 0, 0, 0, self.hour )
    -- self:setpixel( 1, i, j, self.day )
 
-   --io.write( "Day " .. self.day .. " hour " .. self.hour .. "\n" )
+--   io.write( "DayUpdate Day " .. self.day .. " hour " .. self.hour .. "\n" )
 end

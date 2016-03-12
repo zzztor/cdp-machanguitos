@@ -1,5 +1,5 @@
 function Raster:update( delta )
-	local ppercent = 0.0007; --0.07%
+	--[[local ppercent = 0.0007; --0.07%
 	local npercent = 0.005;--0.5%
 	--local deltap = 0.5 * delta;
 	--local deltan = 0.2 * delta;
@@ -36,6 +36,6 @@ function Raster:update( delta )
             self:setpixel( 2, i, j, n );
         end
     end
-  end
+  end]]
 end
 
